@@ -1,0 +1,71 @@
+import { useState, type ReactElement } from "react";
+import { Link } from "react-router";
+import type { ColumnDef } from "@tanstack/react-table";
+import AdminSidebar from "../../components/admin/AdminSidebar";
+import TableHOC from "../../components/admin/TableHOC";
+
+interface DataType {
+  user: string;
+  amount: number;
+  discount: number;
+  quantity: number;
+  status: ReactElement;
+  action: ReactElement;
+}
+
+const arr: Array<DataType> = [
+  {
+    user: "Charas",
+    amount: 4500,
+    discount: 400,
+    status: <span className="red">Processing</span>,
+    quantity: 3,
+    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+  },
+  {
+    user: "Xavirors",
+    amount: 6999,
+    discount: 400,
+    status: <span className="green">Shipped</span>,
+    quantity: 6,
+    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+  },
+  {
+    user: "Xavirors",
+    amount: 6999,
+    discount: 400,
+    status: <span className="purple">Delivered</span>,
+    quantity: 6,
+    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+  },
+];
+
+const columns: ColumnDef<DataType>[] = [
+  { header: "Avatar", accessorKey: "user" },
+  { header: "Amount", accessorKey: "amount" },
+  { header: "Discount", accessorKey: "discount" },
+  { header: "Quantity", accessorKey: "quantity" },
+  { header: "Status", accessorKey: "status" },
+  { header: "Action", accessorKey: "action" },
+];
+
+const Transaction = () => {
+  const [rows] = useState<DataType[]>(arr);
+
+  const Table = TableHOC<DataType>(
+    columns,
+    rows,
+    "dashboard-product-box",
+    "Transactions",
+    rows.length > 6,
+  )();
+
+  return (
+    <div className="admin-container">
+      <AdminSidebar />
+      <main>{Table}</main>
+    </div>
+  );
+};
+
+export default Transaction;
