@@ -1,11 +1,20 @@
 import React from "react";
 import Header from "../components/Header";
+import { Link } from "react-router";
 
 function Home() {
   return (
-    <div>
+    <div className="home">
       <Header />
-      Home
+
+      <section>
+        <h1>
+          Latest Products
+          <Link to={"/search"} className="findmore">
+            More
+          </Link>
+        </h1>
+      </section>
     </div>
   );
 }
