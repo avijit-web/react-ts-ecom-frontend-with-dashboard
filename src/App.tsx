@@ -3,6 +3,9 @@ import { Route, Routes } from "react-router";
 import Loader from "./components/loader";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+const Login = lazy(() => import("./pages/login"));
+const Shipping = lazy(() => import("./pages/shipping"));
+
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
 const Cart = lazy(() => import("./pages/cart"));
@@ -33,6 +36,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/shipping" element={<Shipping />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />

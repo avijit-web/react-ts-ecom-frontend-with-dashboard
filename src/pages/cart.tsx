@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { VscError } from "react-icons/vsc";
+import CartItem from "../components/admin/CartItem";
+import { Link } from "react-router";
 
-const cartItems = [];
+const cartItems = [
+  {
+    productId: 1,
+    name: "Product 1",
+    price: 1000,
+    photo:
+      "https://plus.unsplash.com/premium_photo-1764028979247-58d20965c7cf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    quantity: 2,
+    stock: 10,
+  },
+];
 
 const subtotal = 4000;
 
@@ -33,9 +45,18 @@ function Cart() {
   }, [couponCode]);
 
   return (
-    <div className="cart">
+    <div>
       <Header />
-      <main>
+
+      <div className="cart">
+        <main>
+          {cartItems.length > 0 ? (
+            cartItems.map((i, _idx) => <CartItem key={_idx} cartItem={i} />)
+          ) : (
+            <p>Your cart is empty</p>
+          )}
+        </main>
+
         <aside>
           <p>Subtotal : ${subtotal}</p>
           <p>Shipping Charges :${shippingCharges}</p>
@@ -59,15 +80,19 @@ function Cart() {
           {couponCode &&
             (isValid ? (
               <span className="green">
-                ${discount} off using {couponCode}
+                ${discount} off using <code>{couponCode}</code>
               </span>
             ) : (
               <span className="red">
                 Invalid coupon <VscError />{" "}
               </span>
             ))}
+
+          {cartItems.length > 0 && (
+            <Link to="/shipping">Proceed to Checkout</Link>
+          )}
         </aside>
-      </main>
+      </div>
     </div>
   );
 }
