@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router";
 import Loader from "./components/loader";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+const Orders = lazy(() => import("./pages/Orders"));
+const OrderDetails = lazy(() => import("./pages/OrderDetails"));
 const Login = lazy(() => import("./pages/login"));
 const Shipping = lazy(() => import("./pages/shipping"));
 
@@ -39,7 +41,12 @@ function App() {
 
           <Route path="/login" element={<Login />} />
 
-          <Route path="/shipping" element={<Shipping />} />
+          <Route>
+            <Route path="/orders" element={<Orders />} />
+
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/orders/:id" element={<OrderDetails />} />
+          </Route>
 
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
